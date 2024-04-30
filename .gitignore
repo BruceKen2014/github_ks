@@ -34,6 +34,7 @@
 
 # text files
 *.tlog
+*.log
 
 # misc
 *.vsidx
@@ -41,6 +42,9 @@
 *.lock
 *.VC.db
 *.suo
+*.ilk
+*.idb
 
 # path
 .vs/
+/LuaTutorial/lesson2/x64/Debug

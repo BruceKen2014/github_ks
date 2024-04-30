@@ -1,6 +1,10 @@
-
-
-
+/*
+* æœ¬èŠ‚è¯¾çš„ç›®æ ‡
+* 1.åˆ›å»ºlua_State
+* 2.è®°è½½ä¸€ä¸ªluaæ–‡ä»¶å¹¶è°ƒç”¨
+* 3.C++è°ƒç”¨luaå®šä¹‰çš„å‡½æ•°
+* 4.luaè°ƒç”¨C++å®šä¹‰çš„å‡½æ•°
+*/
 
 #include <iostream>
 extern "C"
@@ -15,7 +19,7 @@ extern "C"
 using namespace std;
 
 lua_State* LuaState = nullptr;
-// ³õÊ¼»¯Lua»·¾³.  
+// åˆå§‹åŒ–Luaç¯å¢ƒ.  
 lua_State* initLuaEnv()
 {
 	lua_State* luaEnv = luaL_newstate();
@@ -24,7 +28,7 @@ lua_State* initLuaEnv()
 	return luaEnv;
 }
 
-// ¼ÓÔØLuaÎÄ¼şµ½LuaÔËĞĞÊ±»·¾³ÖĞ
+// åŠ è½½Luaæ–‡ä»¶åˆ°Luaè¿è¡Œæ—¶ç¯å¢ƒä¸­
 bool loadLuaFile(const string& fileName)
 {
 	int result = luaL_loadfile(LuaState, fileName.c_str());
@@ -37,13 +41,13 @@ bool loadLuaFile(const string& fileName)
 	return result == 0;
 }
 
-//C++µ÷ÓÃlua¶¨ÒåµÄvoidº¯Êı
+//C++è°ƒç”¨luaå®šä¹‰çš„voidå‡½æ•°
 void CallLuaFunction(const string& lua_function_name)
 {
 	lua_getglobal(LuaState, lua_function_name.c_str());
 	lua_pushstring(LuaState, "Jim");
 	lua_pushstring(LuaState, "Green");
-	// µ÷ÓÃLuaº¯Êı£¨3¸ö²ÎÊı,Ò»¸ö·µ»ØÖµ£©.  
+	// è°ƒç”¨Luaå‡½æ•°ï¼ˆ3ä¸ªå‚æ•°,ä¸€ä¸ªè¿”å›å€¼ï¼‰.  
 	lua_pcall(LuaState, 2, 1, 0);
 
 	if (lua_isstring(LuaState, -1))
@@ -53,7 +57,7 @@ void CallLuaFunction(const string& lua_function_name)
 	}
 }
 
-//C++º¯Êı×¢²á¸øluaµ÷ÓÃ
+//C++å‡½æ•°æ³¨å†Œç»™luaè°ƒç”¨
 static int add(lua_State* L)
 {
 	double a = lua_tonumber(L, 1);

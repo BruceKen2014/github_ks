@@ -1,6 +1,7 @@
-
-
-
+/*
+* 本节课的目标
+* C++创建一个全局的table，并且可被lua使用
+*/
 
 #include <iostream>
 extern "C"
@@ -10,12 +11,11 @@ extern "C"
 #include <lualib.h>
 }
 
-
 #pragma comment(lib, "lua_lib")
 using namespace std;
 
 lua_State* LuaState = nullptr;
-// ��ʼ��Lua����.  
+// 初始化Lua环境.  
 lua_State* initLuaEnv()
 {
 	lua_State* luaEnv = luaL_newstate();
@@ -24,7 +24,7 @@ lua_State* initLuaEnv()
 	return luaEnv;
 }
 
-// ����Lua�ļ���Lua����ʱ������
+// 加载Lua文件到Lua运行时环境中
 bool loadLuaFile(const string& fileName)
 {
 	int result = luaL_loadfile(LuaState, fileName.c_str());
@@ -37,43 +37,92 @@ bool loadLuaFile(const string& fileName)
 	return result == 0;
 }
 
-//C++����lua�����void����
-void CallLuaFunction(const string& lua_function_name)
+void CreateTable(const char* TableName)
 {
-	lua_getglobal(LuaState, lua_function_name.c_str());
-	lua_pushstring(LuaState, "Jim");
-	lua_pushstring(LuaState, "Green");
-	// ����Lua������3������,һ������ֵ��.  
-	lua_pcall(LuaState, 2, 1, 0);
+	//创建一个table，并入栈
+	lua_newtable(LuaState);
 
-	if (lua_isstring(LuaState, -1))
-	{
-		const char* FullName = lua_tostring(LuaState, -1);
-		cout << "full name is " << FullName << endl;
-	}
+	lua_pushstring(LuaState, "name");
+	lua_pushstring(LuaState, "Jim");
+
+	/*
+	* lua_settable相当于执行一个table[k] = v
+	* table为从从栈索引为1的位置取得一个table，这里就是我们新创建的table
+	* v为从栈顶拿取元素当做value，即我们最后push的Jim
+	* k为栈顶下面一个元素，即我们倒数第一次push的name
+	* lua_settable调用完成后，将栈顶的两个元素出栈
+	*/
+	lua_settable(LuaState, 1);
+
+	//同理再次添加一个table k v
+	lua_pushstring(LuaState, "age");
+	lua_pushnumber(LuaState, 20);
+	lua_settable(LuaState, 1);
+
+	//此时栈里面只有一个元素，就是我们新创建的table
+
+	//lua_setglobal执行的操作是从栈中弹出一个元素，并将它设置为name的value
+	// 相当于_G[name] = table
+	lua_setglobal(LuaState, TableName);
 }
 
-//C++����ע���lua����
-static int add(lua_State* L)
+
+int main()
 {
-	double a = lua_tonumber(L, 1);
-	double b = lua_tonumber(L, 2);
-	double total = a + b;
-	lua_pushnumber(L, total);
+	LuaState = initLuaEnv();
+	CreateTable("Student");
+	loadLuaFile("main.lua");
+
+	lua_close(LuaState);
+	return 0;
+}
+
+/*
+*
+
+struct FVector
+{
+	FVector(float _X, float _Y, float _Z):X(_X), Y(_Y),Z(_Z){}
+	float X = 0.0f;
+	float Y = 0.0f;
+	float Z = 0.0f;
+};
+
+// C++函数注册给lua调用
+static int NewFVector(lua_State * L)
+{
+	double X = lua_tonumber(L, 1);
+	double Y = lua_tonumber(L, 2);
+	double Z = lua_tonumber(L, 2);
+	FVector* ret = new FVector(X, Y, Z);
+	lua_pushlightuserdata(L, ret);
 	return 1;
 }
 
 void RegisterCPPFunction()
 {
-	lua_register(LuaState, "add", add);
+	lua_register(LuaState, "FVector", NewFVector);
 }
-int main()
+class ILuaInterface
 {
-	LuaState = initLuaEnv();
-	RegisterCPPFunction();
-	loadLuaFile("main.lua");
-	CallLuaFunction("LuaFunction");
+public:
+	virtual const char* GetLuaFileName() = 0;
+};
 
-	lua_close(LuaState);
-	return 0;
+class A :public ILuaInterface
+{
+public:
+	virtual const char* GetLuaFileName() override { return "A";};
+
+	virtual void PrintHello();
+};
+
+ILuaInterface* CreateA()
+{
+	A* a = new A();
+	const char* LuaFile = a->GetLuaFileName();
+
+
 }
+
+*/
