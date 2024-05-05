@@ -1,6 +1,13 @@
 /*
 * 本节课的目标
 * C++创建一个全局的table，并且可被lua使用
+* 
+* 本节课学习的lua api
+* lua_newtable 创建一个table，并入栈
+* lua_pushstring 向栈中push一个string
+* lua_settable 给栈中的table设置k v
+* lua_setglobal (lua_State *L, const char *name) 从栈中弹出一个元素，并将它设置为name的value, 相当于_G[name] = table
+* luaL_dofile 加载文件后直接执行
 */
 
 #include <iostream>
@@ -15,27 +22,6 @@ extern "C"
 using namespace std;
 
 lua_State* LuaState = nullptr;
-// 初始化Lua环境.  
-lua_State* initLuaEnv()
-{
-	lua_State* luaEnv = luaL_newstate();
-	luaL_openlibs(luaEnv);
-
-	return luaEnv;
-}
-
-// 加载Lua文件到Lua运行时环境中
-bool loadLuaFile(const string& fileName)
-{
-	int result = luaL_loadfile(LuaState, fileName.c_str());
-	if (result)
-	{
-		return false;
-	}
-
-	result = lua_pcall(LuaState, 0, 0, 0);
-	return result == 0;
-}
 
 void CreateTable(const char* TableName)
 {
@@ -48,11 +34,11 @@ void CreateTable(const char* TableName)
 	/*
 	* lua_settable相当于执行一个table[k] = v
 	* table为从从栈索引为1的位置取得一个table，这里就是我们新创建的table
-	* v为从栈顶拿取元素当做value，即我们最后push的Jim
 	* k为栈顶下面一个元素，即我们倒数第一次push的name
+	* v为从栈顶拿取元素当做value，即我们最后push的Jim
 	* lua_settable调用完成后，将栈顶的两个元素出栈
 	*/
-	lua_settable(LuaState, 1);
+	lua_settable(LuaState, 1); //注：创建全局变量，可先将_G入栈，然后操作_G
 
 	//同理再次添加一个table k v
 	lua_pushstring(LuaState, "age");
@@ -69,9 +55,17 @@ void CreateTable(const char* TableName)
 
 int main()
 {
-	LuaState = initLuaEnv();
+	//创建State
+	LuaState = luaL_newstate();
+	//加载基本库
+	luaL_openlibs(LuaState);
+
 	CreateTable("Student");
-	loadLuaFile("main.lua");
+
+	//加载文件
+	int result = luaL_dofile(LuaState, "lesson1.lua");
+	if (result != LUA_OK)
+		return 1;
 
 	lua_close(LuaState);
 	return 0;

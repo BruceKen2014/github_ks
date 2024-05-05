@@ -43,8 +43,11 @@
 *.VC.db
 *.suo
 *.ilk
+*.exe.recipe
+*.recipe
 *.idb
 
 # path
 .vs/
 /LuaTutorial/lesson2/x64/Debug
+*.recipe

@@ -18,11 +18,14 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="lesson9.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e8f6451b-3319-4c91-9ffa-77ccb202ecf7}</ProjectGuid>
-    <RootNamespace>lualib</RootNamespace>
+    <ProjectGuid>{706AE400-B9F1-4075-8545-00DE3C56A1DD}</ProjectGuid>
+    <RootNamespace>lesson1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,7 +43,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -70,6 +73,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>../luasrc;$(IncludePath)</IncludePath>
+    <LibraryPath>../x64/Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -126,75 +133,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\luasrc\lapi.c" />
-    <ClCompile Include="..\luasrc\lauxlib.c" />
-    <ClCompile Include="..\luasrc\lbaselib.c" />
-    <ClCompile Include="..\luasrc\lcode.c" />
-    <ClCompile Include="..\luasrc\lcorolib.c" />
-    <ClCompile Include="..\luasrc\lctype.c" />
-    <ClCompile Include="..\luasrc\ldblib.c" />
-    <ClCompile Include="..\luasrc\ldebug.c" />
-    <ClCompile Include="..\luasrc\ldo.c" />
-    <ClCompile Include="..\luasrc\ldump.c" />
-    <ClCompile Include="..\luasrc\lfunc.c" />
-    <ClCompile Include="..\luasrc\lgc.c" />
-    <ClCompile Include="..\luasrc\linit.c" />
-    <ClCompile Include="..\luasrc\liolib.c" />
-    <ClCompile Include="..\luasrc\llex.c" />
-    <ClCompile Include="..\luasrc\lmathlib.c" />
-    <ClCompile Include="..\luasrc\lmem.c" />
-    <ClCompile Include="..\luasrc\loadlib.c" />
-    <ClCompile Include="..\luasrc\lobject.c" />
-    <ClCompile Include="..\luasrc\lopcodes.c" />
-    <ClCompile Include="..\luasrc\loslib.c" />
-    <ClCompile Include="..\luasrc\lparser.c" />
-    <ClCompile Include="..\luasrc\lstate.c" />
-    <ClCompile Include="..\luasrc\lstring.c" />
-    <ClCompile Include="..\luasrc\lstrlib.c" />
-    <ClCompile Include="..\luasrc\ltable.c" />
-    <ClCompile Include="..\luasrc\ltablib.c" />
-    <ClCompile Include="..\luasrc\ltm.c" />
-    <ClCompile Include="..\luasrc\lua.c" />
-    <ClCompile Include="..\luasrc\luac.c" />
-    <ClCompile Include="..\luasrc\lundump.c" />
-    <ClCompile Include="..\luasrc\lutf8lib.c" />
-    <ClCompile Include="..\luasrc\lvm.c" />
-    <ClCompile Include="..\luasrc\lzio.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\luasrc\lapi.h" />
-    <ClInclude Include="..\luasrc\lauxlib.h" />
-    <ClInclude Include="..\luasrc\lcode.h" />
-    <ClInclude Include="..\luasrc\lctype.h" />
-    <ClInclude Include="..\luasrc\ldebug.h" />
-    <ClInclude Include="..\luasrc\ldo.h" />
-    <ClInclude Include="..\luasrc\lfunc.h" />
-    <ClInclude Include="..\luasrc\lgc.h" />
-    <ClInclude Include="..\luasrc\ljumptab.h" />
-    <ClInclude Include="..\luasrc\llex.h" />
-    <ClInclude Include="..\luasrc\llimits.h" />
-    <ClInclude Include="..\luasrc\lmem.h" />
-    <ClInclude Include="..\luasrc\lobject.h" />
-    <ClInclude Include="..\luasrc\lopcodes.h" />
-    <ClInclude Include="..\luasrc\lopnames.h" />
-    <ClInclude Include="..\luasrc\lparser.h" />
-    <ClInclude Include="..\luasrc\lprefix.h" />
-    <ClInclude Include="..\luasrc\lstate.h" />
-    <ClInclude Include="..\luasrc\lstring.h" />
-    <ClInclude Include="..\luasrc\ltable.h" />
-    <ClInclude Include="..\luasrc\ltm.h" />
-    <ClInclude Include="..\luasrc\lua.h" />
-    <ClInclude Include="..\luasrc\lua.hpp" />
-    <ClInclude Include="..\luasrc\luaconf.h" />
-    <ClInclude Include="..\luasrc\lualib.h" />
-    <ClInclude Include="..\luasrc\lundump.h" />
-    <ClInclude Include="..\luasrc\lvm.h" />
-    <ClInclude Include="..\luasrc\lzio.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\luasrc\Makefile" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
