@@ -10,23 +10,25 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua_lib", "lua_lib\lua_lib.
 		{50795EAC-FE99-4347-A536-BD5C84FDF49C} = {50795EAC-FE99-4347-A536-BD5C84FDF49C}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson1", "lesson1\lesson1.vcxproj", "{50795EAC-FE99-4347-A536-BD5C84FDF49C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson01", "lesson1\lesson1.vcxproj", "{50795EAC-FE99-4347-A536-BD5C84FDF49C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson2", "lesson2\lesson2.vcxproj", "{4FDD8123-B744-4580-9FF1-AA687CBD71B4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson02", "lesson2\lesson2.vcxproj", "{4FDD8123-B744-4580-9FF1-AA687CBD71B4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson3", "lesson3\lesson3.vcxproj", "{BB982201-E146-4515-B045-337FF16E4347}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson03", "lesson3\lesson3.vcxproj", "{BB982201-E146-4515-B045-337FF16E4347}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson4", "lesson4\lesson4.vcxproj", "{E4F29AA4-E325-48D0-AE2D-E3253827897B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson04", "lesson4\lesson4.vcxproj", "{E4F29AA4-E325-48D0-AE2D-E3253827897B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson5", "lesson5\lesson5.vcxproj", "{37A0BA92-662B-44B8-A9D0-651F2FAB6198}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson05", "lesson5\lesson5.vcxproj", "{37A0BA92-662B-44B8-A9D0-651F2FAB6198}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson6", "lesson6\lesson6.vcxproj", "{59CF0C3E-0D37-4336-A37A-D8BCC152887B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson06", "lesson6\lesson6.vcxproj", "{59CF0C3E-0D37-4336-A37A-D8BCC152887B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson7", "lesson7\lesson7.vcxproj", "{21053A4F-F9DF-496F-8D64-E28EF468D32E}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson07", "lesson7\lesson7.vcxproj", "{21053A4F-F9DF-496F-8D64-E28EF468D32E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson8", "lesson8\lesson8.vcxproj", "{2E3BC644-6414-420E-ABEB-29D5FCDCD769}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson08", "lesson8\lesson8.vcxproj", "{2E3BC644-6414-420E-ABEB-29D5FCDCD769}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson9", "lesson9\lesson9.vcxproj", "{706AE400-B9F1-4075-8545-00DE3C56A1DD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson09", "lesson9\lesson9.vcxproj", "{706AE400-B9F1-4075-8545-00DE3C56A1DD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson10", "lesson10\lesson10.vcxproj", "{F0DE6B08-C979-43FF-B33D-A0BFFA16675F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,6 +118,14 @@ Global
 		{706AE400-B9F1-4075-8545-00DE3C56A1DD}.Release|x64.Build.0 = Release|x64
 		{706AE400-B9F1-4075-8545-00DE3C56A1DD}.Release|x86.ActiveCfg = Release|Win32
 		{706AE400-B9F1-4075-8545-00DE3C56A1DD}.Release|x86.Build.0 = Release|Win32
+		{F0DE6B08-C979-43FF-B33D-A0BFFA16675F}.Debug|x64.ActiveCfg = Debug|x64
+		{F0DE6B08-C979-43FF-B33D-A0BFFA16675F}.Debug|x64.Build.0 = Debug|x64
+		{F0DE6B08-C979-43FF-B33D-A0BFFA16675F}.Debug|x86.ActiveCfg = Debug|Win32
+		{F0DE6B08-C979-43FF-B33D-A0BFFA16675F}.Debug|x86.Build.0 = Debug|Win32
+		{F0DE6B08-C979-43FF-B33D-A0BFFA16675F}.Release|x64.ActiveCfg = Release|x64
+		{F0DE6B08-C979-43FF-B33D-A0BFFA16675F}.Release|x64.Build.0 = Release|x64
+		{F0DE6B08-C979-43FF-B33D-A0BFFA16675F}.Release|x86.ActiveCfg = Release|Win32
+		{F0DE6B08-C979-43FF-B33D-A0BFFA16675F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

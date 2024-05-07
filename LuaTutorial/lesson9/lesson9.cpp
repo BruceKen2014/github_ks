@@ -2,8 +2,9 @@
 /*
 * 本节课的目标
 * 1.C++创建一个Class，创建lua table，table绑定C++实例
-* 2.table销毁时，delete C++指针
-* 3.重写tostring元方法，打印C++ 实例的信息
+* 2.重写__gc元方法，table销毁时，delete C++指针
+* 3.重写__tostring元方法，打印C++ 实例的信息
+* 4.重写__call元方法，模拟C++创建类实例操作
 * 
 * 本节课学习的lua api
 * lua_pop 从栈内弹出n个元素
@@ -108,46 +109,8 @@ static int Student_GC(lua_State* L)
     return 0;
 }
 
-
-static int NewStudent(lua_State* L)
+static int Student_New(lua_State* L)
 {
-    if (lua_getglobal(L, "Student") == LUA_TNIL)
-    {//创建metatable
-        lua_newtable(L);
-
-        lua_pushcfunction(L, Student_GetAge);
-        lua_setfield(L, -2, "GetAge");
-
-        lua_pushcfunction(L, Student_SetAge);
-        lua_setfield(L, -2, "SetAge");
-
-        lua_pushcfunction(L, Student_GetName);
-        lua_setfield(L, -2, "GetName");
-
-        lua_pushcfunction(L, Student_Print);
-        lua_setfield(L, -2, "Print");
-
-        lua_pushcfunction(L, Student_ToString);
-        lua_setfield(L, -2, "__tostring");
-
-        lua_pushcfunction(L, Student_GC);
-        lua_setfield(L, -2, "__gc");
-
-        lua_setglobal(L, "Student");
-
-        //将刚才创建的table入栈
-        lua_getglobal(L, "Student");
-        //入栈一个相同的table
-        lua_getglobal(L, "Student");
-        //设置table的__index为自身
-        lua_setfield(L, -2, "__index");
-        lua_pop(L, 1);
-    }
-    else
-    {
-        lua_pop(L, 1);
-    }
-
     lua_newtable(L);
 
     Student* newStudent = new Student();
@@ -160,6 +123,51 @@ static int NewStudent(lua_State* L)
     return 1;
 }
 
+void CreateStudentTable()
+{
+    lua_State* L = LuaState;
+    lua_newtable(L);
+
+    lua_pushcfunction(L, Student_GetAge);
+    lua_setfield(L, -2, "GetAge");
+
+    lua_pushcfunction(L, Student_SetAge);
+    lua_setfield(L, -2, "SetAge");
+
+    lua_pushcfunction(L, Student_GetName);
+    lua_setfield(L, -2, "GetName");
+
+    lua_pushcfunction(L, Student_Print);
+    lua_setfield(L, -2, "Print");
+
+    lua_pushcfunction(L, Student_ToString);
+    lua_setfield(L, -2, "__tostring");
+
+    lua_pushcfunction(L, Student_New);
+    lua_setfield(L, -2, "__call");
+
+    lua_pushcfunction(L, Student_GC);
+    lua_setfield(L, -2, "__gc");
+
+    lua_setglobal(L, "Student");
+
+    //将刚才创建的table入栈
+    lua_getglobal(L, "Student");
+
+    //入栈一个相同的table
+    lua_getglobal(L, "Student");
+    //设置table的__index为自身，这里设置为自身的原因是实例找成员找不到会在metatable找，metatable为自身，又添加了GetAge，所以才能找到GetAge
+    lua_setfield(L, -2, "__index");
+
+    //入栈一个相同的table
+    lua_getglobal(L, "Student");
+    //设置table的metatable为自身
+    lua_setmetatable(L, -2);
+
+    lua_pop(L, 1);
+}
+
+
 int main()
 {
     //创建State
@@ -167,13 +175,12 @@ int main()
     //加载基本库
     luaL_openlibs(LuaState);
 
-    lua_register(LuaState, "NewStudent", NewStudent);
-
+    CreateStudentTable();
     luaL_dostring(LuaState, 
-        "local student = NewStudent()"
-        "student:Print()"
-        "student:SetAge(18)"
-        "print(tostring(student))"
+        "local student = Student()\n"
+        "student:Print()\n"
+        "student:SetAge(18)\n"
+        "print(tostring(student))\n"
     );
 
     lua_close(LuaState);
