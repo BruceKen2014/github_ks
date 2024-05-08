@@ -1,6 +1,7 @@
 
 /*
 * 本节课的目标
+* 不影响源Struct代码的情况下，额外绑定table到Struct
 * 1.C++创建Struct，创建lua table，table绑定C++实例
 * 2.重写__index元方法，直接获取Struct成员
 * 3.重写__newindex元方法，直接设置Struct成员
